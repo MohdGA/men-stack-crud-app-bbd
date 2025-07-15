@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="/stylesheet/style.css">
 </head>
 <body>
+
  	<h1><%= foundBusiness.name %></h1>
+
 		<% if (foundBusiness.isVerified) { %> ✅ Verified <% } %>
 
 		<p><strong>Category:</strong> <%= foundBusiness.category %></p>
@@ -27,8 +29,18 @@
       </a>
 		</p>
 		<% } %>
-       <a class="businesses-index-link" href="/businesses">
+
+    <div class="actions">
+      <form action="/businesses/<%=foundBusiness._id %>?_method=DELETE" method="post">
+        <button class="delete-button" type="submit">Delete <%= foundBusiness.name %> </button>
+      </form>
+    </div>
+
+    <a class="businesses-index-link" href="/businesses">
       <div class="index-link-text">Back to All Businesses</div>
     </a>
+
+
+
 </body>
 </html>

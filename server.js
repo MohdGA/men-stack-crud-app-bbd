@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 3000;
 const path = require('path');
+const methodOverride = require('method-override');
+const morgan = require('morgan');
+
 
 // Controllers
 const businessController = require('./controllers/businessController');
@@ -13,10 +16,14 @@ const businessController = require('./controllers/businessController');
 // to connect public folder
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended:false}));
+app.use(methodOverride('_method'));
+app.use(morgan('dev'));
 
 
+// .ENV CONNECTION TO MONGODB
 mongoose.connect(process.env.MONGODB_URI);
 
+// DATABASE CONNECTION
 mongoose.connection.on("connected", () => {
   console.log(`Conected to MongoDB${mongoose.connection.name}`);
 });
